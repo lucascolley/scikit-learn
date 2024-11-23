@@ -10,10 +10,10 @@ import numpy as np
 from ._array_api import (
     _isin,
     _searchsorted,
-    _setdiff1d,
     device,
     get_namespace,
 )
+from . import array_api_extra as xpx
 from ._missing import is_scalar_nan
 
 
@@ -304,7 +304,7 @@ def _check_unknown(values, known_values, return_mask=False):
             diff.append(np.nan)
     else:
         unique_values = xp.unique_values(values)
-        diff = _setdiff1d(unique_values, known_values, xp, assume_unique=True)
+        diff = xpx.setdiff1d(unique_values, known_values, xp, assume_unique=True)
         if return_mask:
             if diff.size:
                 valid_mask = _isin(values, known_values, xp)
